@@ -56,15 +56,10 @@ lab11_php_oop/
 
 ## 🚀 Cara Instalasi & Menjalankan
 
-1. **Clone Repository**
-```bash
-git clone [https://github.com/username-kamu/Lab11Web.git](https://github.com/username-kamu/Lab11Web.git)
-
-```
 
 
-2. **Persiapan Database**
-Buat database baru di phpMyAdmin (misal: `latihan1`) dan jalankan query berikut:
+1. **Persiapan Database**
+Buat database baru di phpMyAdmin ( `latihan1`) dan jalankan query berikut:
 ```sql
 CREATE TABLE artikel (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -76,7 +71,7 @@ CREATE TABLE artikel (
 ```
 
 
-3. **Konfigurasi Project**
+2. **Konfigurasi Project**
 Buka file `config.php` dan sesuaikan dengan setting database lokal kamu:
 ```php
 $config = [
@@ -89,7 +84,7 @@ $config = [
 ```
 
 
-4. **Penempatan Folder**
+3. **Penempatan Folder**
 Pastikan folder project bernama `lab11_php_oop` dan simpan di dalam direktori `htdocs` (jika menggunakan XAMPP).
 5. **Akses Website**
 Buka browser dan akses:
