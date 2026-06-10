@@ -1,33 +1,27 @@
-# Lab11Web - Pemrograman Web 2 (CI4 REST API)
+# Praktikum 7, 8, dan 10: Pembuatan REST API Dasar & CORS
 
-Repository ini memuat hasil praktikum **Modul 7, 8, dan 10** mengenai implementasi REST API, Paging, Filtering, CORS, dan Endpoint Dasar menggunakan Framework CodeIgniter 4.
+## Penjelasan Praktikum
+Repository ini fokus pada implementasi dan eksposur layanan Data (Web Service) menggunakan arsitektur RESTful API melalui fitur `ResourceController` bawaan CodeIgniter 4. Kita juga mengkonfigurasi `CORS` (Cross-Origin Resource Sharing) agar API ini dapat diakses oleh _Frontend_ (seperti VueJS) yang berjalan di server atau port berbeda.
 
-## Praktikum 7 & 8: Pembuatan REST API & Modifikasi CRUD
-Pembuatan REST API menggunakan `ResourceController` untuk mengekspos data artikel. 
+## Langkah-langkah Utama
+- Pembuatan `Post` controller yang mewarisi `ResourceController`.
+- Menambahkan rute API di `Routes.php` menggunakan `$routes->resource('post');`.
+- Menyiapkan metode bawaan (GET, POST, PUT, DELETE) mengembalikan format `JSON`.
+- Memodifikasi `app/Config/Filters.php` untuk merespons format OPTIONS dari Preflight Request CORS.
 
-### Jawaban Pertanyaan dan Tugas (Modul 7 & 8)
-**1. Selesaikan programnya sesuai Langkah-langkah yang ada (Modul 7).**
-**Jawaban:** Program REST API dasar (GET artikel) telah berhasil diimplementasikan menggunakan `ResourceController` CodeIgniter 4. Data ditarik dari database MySQL dan disajikan dalam format JSON.
+## Pertanyaan dan Tugas (Praktikum 7)
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada (REST API Dasar).
+> **Jawaban:** Endpoint API `GET /post` telah aktif dan berhasil menyajikan seluruh artikel dalam _array_ berformat JSON.
 
-**2. Tambahkan fungsi untuk tambah dan ubah data (Modul 8).**
-**Jawaban:** Fungsi `create()`, `update()`, dan `delete()` telah berhasil ditambahkan pada *Post Controller API*. Pengujian juga telah dilakukan via Postman untuk mengirim *raw JSON* untuk mengubah atau menambah data langsung ke database.
+## Pertanyaan dan Tugas (Praktikum 8)
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada. Tambahkan fungsi untuk tambah dan ubah data. Anda boleh melakukan improvisasi.
+> **Jawaban:** Fungsi `create()` (POST), `update()` (PUT), dan `delete()` (DELETE) telah lengkap ditambahkan pada API controller. Tes telah dilakukan menggunakan perangkat pihak ketiga seperti _Postman_ dan _cURL_ dengan mengirimkan _body raw JSON_ ke API, dan rekaman tersimpan sempurna di _database_.
 
-
-### Screenshot Hasil Kerja
-> **Ambil gambar screenshot jalannya program di web browser dan taruh di sini**
-> ![Screenshot](#)
-
-
----
-
-## Praktikum 10: Paging, Filtering, CORS & Pemanfaatan REST API
-Implementasi lanjutan dari REST API dengan penambahan filter pencarian, limitasi data (paging), dan dukungan *Cross-Origin Resource Sharing* (CORS) agar API bisa dikonsumsi oleh aplikasi _Frontend_ yang berbeda port/domain (seperti VueJS).
-
-### Jawaban Pertanyaan dan Tugas (Modul 10)
-**1. Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.**
-**Jawaban:** Langkah-langkah pembuatan API *Paging* dan *Filtering* sukses dikerjakan. Modifikasi `Filters.php` untuk merespons CORS Options juga telah dilakukan sehingga API bisa ditebas (*fetch*) dari VueJS tanpa *Blocked by CORS Policy*.
-
+## Pertanyaan dan Tugas (Praktikum 10)
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada (API Pagination, Filter, CORS). Anda boleh melakukan improvisasi.
+> **Jawaban:** API telah diperbarui agar mendukung _query parameters_ limitasi halaman. Selain itu, _Headers_ `Access-Control-Allow-Origin` berhasil dimasukkan secara global pada _Filters_ sehingga Axios dari repositori VueJS nantinya tidak di-_block_ oleh pelindung peramban web (*browser*).
 
 ### Screenshot Hasil Kerja
 > **Ambil gambar screenshot jalannya program di web browser dan taruh di sini**
 > ![Screenshot](#)
+
