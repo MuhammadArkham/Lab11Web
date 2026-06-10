@@ -16,14 +16,14 @@ Memperbaiki sistem Form Tambah dan Form Edit artikel dengan kemampuan menerima f
 3. **Proses Upload (Backend)**: Menginstruksikan CI4 untuk memeriksa file yang di-_post_. File divalidasi dan diunggah secara aman, kemudian ditransfer menuju direktori _public_ `/public/gambar/`. Nama file unik kemudian disimpan ke database.
 
 
-### 💡 Pertanyaan dan Tugas
+### Pertanyaan dan Tugas
 > **Pertanyaan:**  
 > Selesaikan programnya (Upload Gambar) sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
 > 
 > **Jawaban & Implementasi:**  
 > Integrasi Modul Tambah dan Modul Ubah artikel kini sangat sukses memproses unggahan file gambar dari pengguna lokal. Gambar juga langsung dirender saat tabel ditampilkan.
 
-### 📸 Screenshot Hasil Kerja
+### Screenshot Hasil Kerja
 > **Silakan ganti tag `#` di bawah ini dengan URL gambar Anda**
 > ![Hasil Praktikum](#)
 
@@ -41,14 +41,14 @@ Memindahkan logika penambahan dan pengubahan artikel tanpa proses *refresh* laya
 3. **Pengiriman ke Backend**: Membuka koneksi `$.ajax` dengan tipe POST/PUT menuju rute `Artikel.php`, menanti pesan keberhasilan, dan jika sukses, maka tabel segera di-*render* ulang (fetchData) tanpa pergerakan halaman sama sekali.
 
 
-### 💡 Pertanyaan dan Tugas
+### Pertanyaan dan Tugas
 > **Pertanyaan:**  
 > Selesaikan programnya sesuai Langkah-langkah yang ada. Tambahkan fungsi untuk tambah dan ubah data. Anda boleh melakukan improvisasi.
 > 
 > **Jawaban & Implementasi:**  
 > Aksi *Tambah* dan *Ubah* data berhasil diintegrasikan melalui permintaan POST menggunakan teknik _Asynchronous JavaScript and XML_ secara bersih, meningkatkan interaksi layaknya antarmuka aplikasi modern.
 
-### 📸 Screenshot Hasil Kerja
+### Screenshot Hasil Kerja
 > **Silakan ganti tag `#` di bawah ini dengan URL gambar Anda**
 > ![Hasil Praktikum](#)
 
@@ -66,14 +66,14 @@ Membangun web server spesialis penyedia Data (`API`), memahami konsep standar RE
 4. **Pencegahan Error CORS**: Menginjeksi filter _Cross-Origin Resource Sharing_ di dalam konfigurasi `app/Config/Filters.php` agar Domain Frontend di masa mendatang (seperti `localhost:8080` dari VueJS) dapat leluasa menarik _resource_ dari `localhost:80` (XAMPP).
 
 
-### 💡 Pertanyaan dan Tugas
+### Pertanyaan dan Tugas
 > **Pertanyaan:**  
 > Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
 > 
 > **Jawaban & Implementasi:**  
 > Endpoint API berhasil berjalan sempurna. Konfigurasi perizinan `Access-Control-Allow-Origin: *` pada _Filters_ juga dihidupkan untuk membuka akses dari *Client/Axios*.
 
-### 📸 Screenshot Hasil Kerja
+### Screenshot Hasil Kerja
 > **Silakan ganti tag `#` di bawah ini dengan URL gambar Anda**
 > ![Hasil Praktikum](#)
 
