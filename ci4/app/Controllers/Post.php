@@ -56,11 +56,12 @@ class Post extends ResourceController
     public function update($id = null)
     {
         $model = new ArtikelModel();
-        $id = $this->request->getVar('id') ?? $id;
+        $rawData = $this->request->getRawInput();
+        $id = $rawData['id'] ?? $id;
         $data = [
-            'judul'  => $this->request->getVar('judul'),
-            'isi'    => $this->request->getVar('isi'),
-            'status' => $this->request->getVar('status'),
+            'judul'  => $rawData['judul'] ?? $this->request->getVar('judul'),
+            'isi'    => $rawData['isi'] ?? $this->request->getVar('isi'),
+            'status' => $rawData['status'] ?? $this->request->getVar('status'),
         ];
 
         // Remove null values

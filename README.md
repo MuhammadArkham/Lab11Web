@@ -83,39 +83,196 @@ Memindahkan logika penambahan dan pengubahan artikel tanpa proses refresh layar.
 
 ### Screenshot Hasil Kerja
 
-| No | Tampilan | Deskripsi | Screenshot |
-|----|----------|-----------|------------|
-| 1 | Halaman AJAX | Tampilan tabel artikel AJAX dengan data yang dimuat secara asinkron dan form CRUD tanpa reload halaman | ![AJAX Table](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-09%20104557.png?raw=true) |
+
+### Hasil Uji Coba REST API
+
+Berikut hasil pengujian setiap endpoint REST API menggunakan curl (Command Line):
+
+| No | Method | Endpoint | Token | Status Code | Hasil |
+|----|--------|----------|-------|-------------|-------|
+| 1 | GET | `/post` | Tidak | 200 | JSON array berisi semua artikel dari database (id, judul, isi, slug, gambar, status, id_kategori, created_at, updated_at) |
+| 2 | GET | `/post/{id}` | Tidak | 200 | JSON object detail artikel berdasarkan ID (contoh: `/post/5` menampilkan artikel "Jaringan Komputer") |
+| 3 | POST | `/post` | Wajib | 201 | Artikel baru berhasil dibuat, response `{"status":201,"messages":{"success":"Data artikel berhasil ditambahkan."}}` |
+| 4 | PUT | `/post/{id}` | Wajib | 200 | Data artikel berhasil diubah, response `{"status":200,"messages":{"success":"Data artikel berhasil diubah."}}` |
+| 5 | DELETE | `/post/{id}` | Wajib | 200 | Data artikel berhasil dihapus, response `{"status":200,"messages":{"success":"Data artikel berhasil dihapus."}}` |
+
+### Screenshot Hasil Uji Coba API (Postman)
+
+Ikuti langkah-langkah berikut untuk mengambil screenshot setiap endpoint menggunakan Postman:
 
 ---
 
-## Praktikum 10: Pembuatan REST API Backend
+#### Screenshot 1: GET /post (Menampilkan Semua Data)
 
-### Tujuan Praktikum
+**Langkah-langkah:**
 
-Membangun web server spesialis penyedia Data (API), memahami konsep standar RESTful, dan menangani kebijakan CORS untuk diakses dari platform eksternal.
+1. Buka **Postman**
+2. Klik **Create New** → **HTTP Request**
+3. Pilih method **GET**
+4. Masukkan URL: `http://localhost:8081/post`
+5. Klik tombol **Send**
+6. **Ambil screenshot** yang menampilkan:
+   - Method GET pada dropdown
+   - URL `http://localhost:8081/post`
+   - Bagian Body response berisi JSON array semua artikel
+   - Status code 200 OK
 
-### Langkah-langkah Praktikum
+---
 
-1. **Resource Controller**: Membangun Controller baru (`Post.php`) yang diturunkan bukan dari `BaseController`, melainkan dari bawaan `ResourceController` milik CI4.
-2. **Definisi Endpoint**: Mengubah `Routes.php` menggunakan `$routes->resource('post');` yang otomatis membuka pintu REST untuk GET, POST, PUT, dan DELETE.
-3. **Penerapan Format JSON**: Menggunakan trait `ResponseTrait` di dalam Controller agar setiap nilai balikan (return) yang diberikan selalu bertipe `application/json`.
-4. **Pencegahan Error CORS**: Menginjeksi filter Cross-Origin Resource Sharing di dalam konfigurasi `app/Config/Filters.php` agar Domain Frontend di masa mendatang (seperti `localhost:8080` dari VueJS) dapat leluasa menarik resource dari `localhost:80` (XAMPP).
+#### Screenshot 2: GET /post/{id} (Menampilkan Data Spesifik)
 
-### Pertanyaan dan Tugas
+**Langkah-langkah:**
 
-> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
->
-> **Jawaban:** Endpoint API berhasil berjalan sempurna. Konfigurasi perizinan `Access-Control-Allow-Origin: *` pada Filters juga dihidupkan untuk membuka akses dari Client/Axios.
+1. Buka tab baru di Postman
+2. Pilih method **GET**
+3. Masukkan URL: `http://localhost:8081/post/5`
+4. Klik tombol **Send**
+5. **Ambil screenshot** yang menampilkan:
+   - Method GET pada dropdown
+   - URL `http://localhost:8081/post/5`
+   - Bagian Body response berisi JSON object detail artikel dengan ID 5
+   - Status code 200 OK
 
-### Screenshot Hasil Kerja
+---
 
-| No | Tampilan | Deskripsi | Screenshot |
-|----|----------|-----------|------------|
-| 1 | API GET /post | Response JSON daftar semua artikel dari endpoint REST API | ![API GET All](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080019.png?raw=true) |
-| 2 | API GET /post/{id} | Response JSON detail satu artikel berdasarkan ID | ![API GET Single](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/api_get_single.png?raw=true) |
-| 3 | API POST /post | Membuat artikel baru melalui REST API (test via Postman/browser) | ![API POST](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/api_post.png?raw=true) |
+#### Screenshot 3: POST /post (Menambahkan Data Baru)
 
+**Langkah-langkah:**
+
+1. Buka tab baru di Postman
+2. Pilih method **POST**
+3. Masukkan URL: `http://localhost:8081/post`
+4. Pilih tab **Headers**
+5. Tambahkan header: `Authorization: Bearer VE9LRU...Wlu`
+6. Pilih tab **Body**
+7. Pilih **x-www-form-urlencoded**
+8. Isi kolom KEY dan VALUE berikut:
+   - `judul` → `Artikel Baru dari Postman`
+   - `isi` → `Ini adalah artikel yang dibuat menggunakan method POST melalui Postman`
+9. Klik tombol **Send**
+10. **Ambil screenshot** yang menampilkan:
+    - Method POST pada dropdown
+    - URL `http://localhost:8081/post`
+    - Tab Body dengan key-value judul dan isi
+    - Response JSON berisi status 201
+    - Status code 201 Created
+
+---
+
+#### Screenshot 4: PUT /post/{id} (Mengubah Data)
+
+**Langkah-langkah:**
+
+1. Buka tab baru di Postman
+2. Pilih method **PUT**
+3. Masukkan URL: `http://localhost:8081/post/8` (gunakan ID artikel yang sudah ada)
+4. Pilih tab **Headers**
+5. Tambahkan header: `Authorization: Bearer VE9LRU...Wlu`
+6. Pilih tab **Body**
+7. Pilih **x-www-form-urlencoded**
+8. Isi kolom KEY dan VALUE:
+   - `judul` → `Judul Artikel yang Diupdate`
+   - `isi` → `Konten artikel setelah diubah menggunakan method PUT`
+9. Klik tombol **Send**
+10. **Ambil screenshot** yang menampilkan:
+    - Method PUT pada dropdown
+    - URL `http://localhost:8081/post/8`
+    - Tab Body dengan data yang diubah
+    - Response JSON berisi status 200
+    - Status code 200 OK
+
+---
+
+#### Screenshot 5: DELETE /post/{id} (Menghapus Data)
+
+**Langkah-langkah:**
+
+1. Buka tab baru di Postman
+2. Pilih method **DELETE**
+3. Masukkan URL: `http://localhost:8081/post/9` (atau ID artikel yang ingin dihapus)
+4. Pilih tab **Headers**
+5. Tambahkan header: `Authorization: Bearer VE9LRU...Wlu`
+6. Klik tombol **Send**
+7. **Ambil screenshot** yang menampilkan:
+    - Method DELETE pada dropdown
+    - URL `http://localhost:8081/post/9`
+    - Response JSON berisi status 200
+    - Status code 200 OK
+
+---
+
+#### Screenshot 6: Login via API (Mendapatkan Token)
+
+**Langkah-langkah:**
+
+1. Buka tab baru di Postman
+2. Pilih method **POST**
+3. Masukkan URL: `http://localhost:8081/api/login`
+4. Pilih tab **Body**
+5. Pilih **raw** dan pilih format **JSON**
+6. Isi body:
+   ```json
+   {
+       "username": "admin@email.com",
+       "password": "admin123"
+   }
+   ```
+7. Klik tombol **Send**
+8. **Ambil screenshot** yang menampilkan:
+    - Method POST pada dropdown
+    - URL `http://localhost:8081/api/login`
+    - Tab Body dengan JSON berisi username dan password
+    - Response JSON berisi token
+    - Status code 200 OK
+
+---
+
+### Hasil Uji Coba (Via Command Line)
+
+<details>
+<summary>Klik untuk melihat output real dari setiap endpoint</summary>
+
+**GET /post**
+```json
+{
+    "artikel": [
+        {"id":"8","judul":"Test Upload Gambar Via Admin","slug":"test-upload-gambar-via-admin","status":"0"},
+        {"id":"7","judul":"Peran Artificial Intelligence dalam Kehidupan Modern","status":"0"},
+        {"id":"6","judul":"Pemanfaatan Artificial Intelligence dalam Dunia Pendidikan","status":"0"},
+        {"id":"5","judul":"Jaringan Komputer, Pengertian, Jenis, Transmisi, dan Topologi","status":"0"},
+        {"id":"4","judul":"Mengenal Kecerdasan Buatan (AI) di Era Modern","status":"1"}
+    ]
+}
+```
+
+**GET /post/5**
+```json
+{
+    "id":"5",
+    "judul":"Jaringan Komputer, Pengertian, Jenis, Transmisi, dan Topologi",
+    "slug":"jaringan-komputer-pengertian-jenis-transmisi-dan-topologi",
+    "status":"0",
+    "id_kategori":"3"
+}
+```
+
+**POST /post** (dengan token)
+```json
+{"status":201,"messages":{"success":"Data artikel berhasil ditambahkan."}}
+```
+
+**PUT /post/8** (dengan token)
+```json
+{"status":200,"messages":{"success":"Data artikel berhasil diubah."}}
+```
+
+**DELETE /post/9** (dengan token)
+```json
+{"status":200,"messages":{"success":"Data artikel berhasil dihapus."}}
+```
+</details>
+
+---
 ---
 
 ## Template Screenshot
@@ -129,19 +286,7 @@ Berikut adalah daftar lengkap screenshot yang harus diambil sebagai dokumentasi 
 | 3 | **Form Tambah Artikel** (`/admin/artikel/create`) | Form untuk menambahkan artikel baru | - Input judul, isi artikel<br>- Dropdown kategori yang terisi data dari database<br>- Upload file gambar dengan tombol Browse<br- - Tombol Submit |
 | 4 | **Form Edit Artikel** (`/admin/artikel/edit/{id}`) | Form untuk mengubah artikel yang sudah ada | - Data artikel sebelumnya terisi di form<br>- Dropdown kategori menampilkan kategori yang terseleksi<br>- Gambar yang sudah ada ditampilkan (preview)<br>- Tombol Update |
 | 5 | **Halaman AJAX** (`/ajax`) | Tabel artikel yang dimuat secara asinkron | - Tabel artikel tanpa reload halaman<br>- Form tambah/ubah yang muncul di modal atau inline<br>- Notifikasi sukses/gagal (flash message atau alert)<br>- Data berubah tanpa refresh browser |
-| 6 | **API GET /post** | Response JSON daftar semua artikel | - Tampilan JSON di browser atau Postman<br>- Array of objects dengan field: id, judul, isi, kategori, gambar, created_at, updated_at<br>- Status code 200 |
-| 7 | **API GET /post/{id}** | Response JSON detail satu artikel | - Object JSON tunggal dengan field lengkap<br>- Status code 200 |
-| 8 | **API POST /post** | Membuat artikel baru via REST | - Request body JSON (judul, isi, id_kategori)<br>- Response JSON berisi data yang baru dibuat<br>- Status code 201 |
-| 9 | **Relasi Database (phpMyAdmin)** | Struktur tabel dan relasi foreign key | - Tabel `artikel` dengan kolom `id_kategori` sebagai foreign key<br>- Tabel `kategori` dengan kolom `id` sebagai primary key<br>- Relasi terlihat di tab Relation View |
-
-### Panduan Pengambilan Screenshot
-
-1. Gunakan resolusi layar minimal **1366x768** untuk konsistensi
-2. Simpan file screenshot di folder `Secrenshoot/`
-3. Format penamaan: `SS_<modul>_<deskripsi>.png` (contoh: `SS_7_artikel_publik.png`)
-4. Untuk API, gunakan **Postman** atau browser dengan JSON formatter extension
-5. Untuk relasi database, gunakan tab **Relation View** phpMyAdmin
-
+| 6 | **Relasi Database (phpMyAdmin)** | Struktur tabel dan relasi foreign key | - Tabel `artikel` dengan kolom `id_kategori` sebagai foreign key<br>- Tabel `kategori` dengan kolom `id` sebagai primary key<br>- Relasi terlihat di tab Relation View |
 ---
 
 ## Struktur Folder
