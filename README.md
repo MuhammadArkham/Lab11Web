@@ -194,6 +194,12 @@ public function admin_index()
 }
 ```
 
+### Pertanyaan dan Tugas
+
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+>
+> **Jawaban:** Telah diselesaikan upload file gambar dengan validasi ekstensi (hanya gambar), rename otomatis menggunakan `getRandomName()`, dan penyimpanan ke folder `public/gambar`. Relasi JOIN dengan tabel kategori ditambahkan untuk menampilkan nama kategori di daftar artikel.
+
 ### Dokumentasi Screenshot
 
 | Tampilan | Screenshot |
@@ -282,6 +288,12 @@ $routes->post('/admin/artikel/add', 'Artikel::add_ajax');
 $routes->post('/admin/artikel/edit/(:num)', 'Artikel::edit_ajax/$1');
 $routes->delete('/admin/artikel/delete/(:num)', 'Artikel::delete_ajax/$1');
 ```
+
+### Pertanyaan dan Tugas
+
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada. Tambahkan fungsi untuk tambah dan ubah data. Anda boleh melakukan improvisasi.
+>
+> **Jawaban:** Telah ditambahkan method `add_ajax()`, `edit_ajax()`, dan `delete_ajax()` pada controller Artikel. Route POST untuk tambah (`/admin/artikel/add`), POST untuk edit (`/admin/artikel/edit/(:num)`), dan DELETE untuk hapus (`/admin/artikel/delete/(:num)`). Data dikirim dan diterima secara asinkron tanpa reload halaman menggunakan jQuery AJAX.
 
 ### Dokumentasi Screenshot
 
@@ -479,6 +491,12 @@ Screenshot hasil uji coba REST API menggunakan Postman:
 | POST /post (Menambahkan Data Baru) | ![POST Post](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-06-25%20211257.png?raw=true) |
 | PUT/DELETE /post (Update & Hapus Data) | ![PUT DELETE Post](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-06-25%20211337.png?raw=true) |
 | API 404 Not Found | ![API 404](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/m10_api_404_not_found.png?raw=true) |
+
+### Pertanyaan dan Tugas
+
+> **Pertanyaan:** Selesaikan programnya sesuai Langkah-langkah yang ada. Anda boleh melakukan improvisasi.
+>
+> **Jawaban:** REST API telah dibangun menggunakan `ResourceController` CI4 dengan endpoint: GET `/post`, GET `/post/{id}`, POST `/post`, PUT `/post/{id}`, DELETE `/post/{id}`. ApiAuthFilter memvalidasi token Bearer pada setiap request. CORS diaktifkan via `router.php` untuk akses dari frontend Vue.js. Login API di `/api/login` mengembalikan token autentikasi.
 
 ---
 
