@@ -471,8 +471,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 ### Dokumentasi Screenshot
 
-| Tampilan | Screenshot |
+Screenshot hasil uji coba REST API menggunakan Postman:
+
+| Endpoint | Screenshot |
 |----------|-----------|
+| GET /post (Menampilkan Semua Data) | ![GET Post](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-06-25%20211227.png?raw=true) |
+| POST /post (Menambahkan Data Baru) | ![POST Post](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-06-25%20211257.png?raw=true) |
+| PUT/DELETE /post (Update & Hapus Data) | ![PUT DELETE Post](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-06-25%20211337.png?raw=true) |
 | API 404 Not Found | ![API 404](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/m10_api_404_not_found.png?raw=true) |
 
 ---
