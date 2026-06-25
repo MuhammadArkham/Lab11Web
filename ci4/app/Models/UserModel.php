@@ -7,5 +7,6 @@ class UserModel extends Model
     protected $table = 'user';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;
+    protected $useTimestamps    = true;
     protected $allowedFields = ['username', 'useremail', 'userpassword'];
 }

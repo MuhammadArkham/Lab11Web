@@ -21,6 +21,21 @@ Repositori ini memuat kelanjutan pengerjaan praktikum pada **Modul 7, 8, dan 10*
 
 ---
 
+## Daftar Perbaikan Bug
+
+Sejumlah perbaikan bug telah dilakukan untuk memastikan aplikasi berjalan dengan benar:
+
+| No | Bug | Deskripsi | Perbaikan |
+|----|-----|-----------|-----------|
+| 1 | Nama file upload tidak unik | File gambar yang diupload dengan nama sama akan saling menimpa karena menggunakan `getName()` | Diganti dengan `getRandomName()` agar setiap file mendapat nama unik hasil generate otomatis |
+| 2 | Artikel draft tampil di halaman publik | Query pada controller publik tidak memfilter status artikel, sehingga artikel dengan status draft (0) tetap muncul | Ditambahkan klausa `WHERE status = 1` pada query artikel publik |
+| 3 | Namespace salah pada ApiAuthFilter | File `app/Filters/ApiAuthFilter.php` menggunakan namespace `CodeIgniter\Http` yang salah untuk `RequestInterface` dan `ResponseInterface` | Diperbaiki menjadi `CodeIgniter\HTTP` (sesuai vendor CI4) |
+| 4 | Timezone tidak sesuai wilayah | Aplikasi menggunakan timezone UTC (`appTimezone = 'UTC'`) sehingga timestamp artikel berbeda dengan waktu lokal | Diubah menjadi `'Asia/Jakarta'` agar timestamp sesuai WIB |
+| 5 | Timestamp otomatis tidak aktif | Model `ArtikelModel`, `KategoriModel`, dan `UserModel` tidak mengaktifkan fitur `useTimestamps` sehingga kolom `created_at` / `updated_at` tidak terisi otomatis | Ditambahkan properti `protected $useTimestamps = true;` pada ketiga model |
+| 6 | Route OPTIONS tidak terdaftar | Request HTTP method OPTIONS (preflight CORS) tidak memiliki handler sehingga request dari domain lain gagal | Telah ditambahkan route khusus untuk method OPTIONS dan konfigurasi `router.php` sudah ada |
+
+---
+
 ## Daftar Isi
 
 1. [Praktikum 7: Relasi Tabel & Upload File Gambar](#praktikum-7-relasi-tabel--upload-file-gambar)
@@ -51,10 +66,13 @@ Memperbaiki sistem Form Tambah dan Form Edit artikel dengan kemampuan menerima f
 
 ### Screenshot Hasil Kerja
 
-| Tampilan | Screenshot |
-|----------|------------|
-| Form Tambah dengan Upload | ![Form Tambah](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080151.png?raw=true) |
-| Form Edit dengan Upload | ![Form Edit](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080219.png?raw=true) |
+| No | Tampilan | Deskripsi | Screenshot |
+|----|----------|-----------|------------|
+| 1 | Halaman Artikel Publik | Tampilan daftar artikel dengan kategori filter dan gambar terupload yang sudah difilter hanya status=1 | ![Artikel Publik](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080151.png?raw=true) |
+| 2 | Halaman Admin Artikel | Tampilan CRUD artikel admin dengan pagination, search, dan kategori filter | ![Admin Artikel](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080219.png?raw=true) |
+| 3 | Form Tambah Artikel | Form tambah artikel dengan dropdown kategori dan input upload gambar | ![Form Tambah](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080151.png?raw=true) |
+| 4 | Form Edit Artikel | Form edit artikel dengan dropdown kategori yang sudah terseleksi dan gambar yang sudah ada | ![Form Edit](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080219.png?raw=true) |
+| 5 | Relasi Database | Struktur tabel artikel dengan foreign key id_kategori yang terhubung ke tabel kategori | ![Relasi DB](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/relasi_db.png?raw=true) |
 
 ---
 
@@ -80,9 +98,9 @@ Memindahkan logika penambahan dan pengubahan artikel tanpa proses refresh layar.
 
 ### Screenshot Hasil Kerja
 
-| Tampilan | Screenshot |
-|----------|------------|
-| AJAX Table Management | ![AJAX](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-09%20104557.png?raw=true) |
+| No | Tampilan | Deskripsi | Screenshot |
+|----|----------|-----------|------------|
+| 1 | Halaman AJAX | Tampilan tabel artikel AJAX dengan data yang dimuat secara asinkron dan form CRUD tanpa reload halaman | ![AJAX Table](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-09%20104557.png?raw=true) |
 
 ---
 
@@ -107,9 +125,37 @@ Membangun web server spesialis penyedia Data (API), memahami konsep standar REST
 
 ### Screenshot Hasil Kerja
 
-| Tampilan | Screenshot |
-|----------|------------|
-| REST API Response (JSON) | ![API Response](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080019.png?raw=true) |
+| No | Tampilan | Deskripsi | Screenshot |
+|----|----------|-----------|------------|
+| 1 | API GET /post | Response JSON daftar semua artikel dari endpoint REST API | ![API GET All](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/Screenshot%202026-04-02%20080019.png?raw=true) |
+| 2 | API GET /post/{id} | Response JSON detail satu artikel berdasarkan ID | ![API GET Single](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/api_get_single.png?raw=true) |
+| 3 | API POST /post | Membuat artikel baru melalui REST API (test via Postman/browser) | ![API POST](https://github.com/MuhammadArkham/Lab11Web/blob/main/Secrenshoot/api_post.png?raw=true) |
+
+---
+
+## Template Screenshot
+
+Berikut adalah daftar lengkap screenshot yang harus diambil sebagai dokumentasi aplikasi:
+
+| No | Halaman / Endpoint | Deskripsi | Komponen yang Harus Terlihat |
+|----|---------------------|-----------|------------------------------|
+| 1 | **Halaman Artikel Publik** (`/artikel`) | Tampilan daftar artikel yang dapat diakses pengunjung | - Daftar artikel dengan judul, gambar, dan deskripsi<br>- Dropdown filter kategori<br>- Hanya menampilkan artikel dengan status=1 (published)<br>- Gambar artikel tampil dengan benar |
+| 2 | **Halaman Admin Artikel** (`/admin/artikel`) | Tampilan manajemen artikel dari sisi admin | - Tabel artikel dengan kolom ID, Judul, Kategori, Status, Aksi<br>- Fitur pagination<br>- Search box pencarian artikel<br>- Filter kategori |
+| 3 | **Form Tambah Artikel** (`/admin/artikel/create`) | Form untuk menambahkan artikel baru | - Input judul, isi artikel<br>- Dropdown kategori yang terisi data dari database<br>- Upload file gambar dengan tombol Browse<br- - Tombol Submit |
+| 4 | **Form Edit Artikel** (`/admin/artikel/edit/{id}`) | Form untuk mengubah artikel yang sudah ada | - Data artikel sebelumnya terisi di form<br>- Dropdown kategori menampilkan kategori yang terseleksi<br>- Gambar yang sudah ada ditampilkan (preview)<br>- Tombol Update |
+| 5 | **Halaman AJAX** (`/ajax`) | Tabel artikel yang dimuat secara asinkron | - Tabel artikel tanpa reload halaman<br>- Form tambah/ubah yang muncul di modal atau inline<br>- Notifikasi sukses/gagal (flash message atau alert)<br>- Data berubah tanpa refresh browser |
+| 6 | **API GET /post** | Response JSON daftar semua artikel | - Tampilan JSON di browser atau Postman<br>- Array of objects dengan field: id, judul, isi, kategori, gambar, created_at, updated_at<br>- Status code 200 |
+| 7 | **API GET /post/{id}** | Response JSON detail satu artikel | - Object JSON tunggal dengan field lengkap<br>- Status code 200 |
+| 8 | **API POST /post** | Membuat artikel baru via REST | - Request body JSON (judul, isi, id_kategori)<br>- Response JSON berisi data yang baru dibuat<br>- Status code 201 |
+| 9 | **Relasi Database (phpMyAdmin)** | Struktur tabel dan relasi foreign key | - Tabel `artikel` dengan kolom `id_kategori` sebagai foreign key<br>- Tabel `kategori` dengan kolom `id` sebagai primary key<br>- Relasi terlihat di tab Relation View |
+
+### Panduan Pengambilan Screenshot
+
+1. Gunakan resolusi layar minimal **1366x768** untuk konsistensi
+2. Simpan file screenshot di folder `Secrenshoot/`
+3. Format penamaan: `SS_<modul>_<deskripsi>.png` (contoh: `SS_7_artikel_publik.png`)
+4. Untuk API, gunakan **Postman** atau browser dengan JSON formatter extension
+5. Untuk relasi database, gunakan tab **Relation View** phpMyAdmin
 
 ---
 
@@ -123,7 +169,7 @@ Lab11Web/
 │   │   ├── Controllers/                # Artikel, Post (ResourceController)
 │   │   ├── Models/                     # ArtikelModel
 │   │   ├── Views/                      # Template, komponen AJAX
-│   │   └── Filters/                    # CorsFilter
+│   │   └── Filters/                    # ApiAuthFilter, CorsFilter
 │   ├── public/                         # Entry point, uploads/gambar/
 │   └── ...
 ├── Secrenshoot/                        # Dokumentasi screenshot praktikum

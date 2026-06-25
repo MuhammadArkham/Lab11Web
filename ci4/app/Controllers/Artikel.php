@@ -11,7 +11,12 @@ class Artikel extends BaseController
     {
         $title   = 'Daftar Artikel';
         $model   = new ArtikelModel();
-        $artikel = $model->getArtikelDenganKategori();
+        $artikel = $model->db->table('artikel')
+            ->select('artikel.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
+            ->where('artikel.status', 1)
+            ->get()
+            ->getResultArray();
         return view('artikel/index', compact('artikel', 'title'));
     }
 
@@ -115,8 +120,9 @@ class Artikel extends BaseController
             // Handle file upload gambar
             $file = $this->request->getFile('gambar');
             if ($file && $file->isValid() && !$file->hasMoved()) {
-                $file->move(ROOTPATH . 'public/gambar');
-                $insertData['gambar'] = $file->getName();
+                $newName = $file->getRandomName();
+                $file->move(ROOTPATH . 'public/gambar', $newName);
+                $insertData['gambar'] = $newName;
             }
 
             $model->insert($insertData);
@@ -148,8 +154,9 @@ class Artikel extends BaseController
             // Handle file upload gambar
             $file = $this->request->getFile('gambar');
             if ($file && $file->isValid() && !$file->hasMoved()) {
-                $file->move(ROOTPATH . 'public/gambar');
-                $updateData['gambar'] = $file->getName();
+                $newName = $file->getRandomName();
+                $file->move(ROOTPATH . 'public/gambar', $newName);
+                $updateData['gambar'] = $newName;
             }
 
             $model->update($id, $updateData);

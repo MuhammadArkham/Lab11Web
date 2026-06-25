@@ -31,4 +31,4 @@ defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', true);
  | the system. This will control whether Kint is loaded, and a few other
  | items. It can always be used within your own application too.
  */
-defined('CI_DEBUG') || define('CI_DEBUG', true);
+defined('CI_DEBUG') || define('CI_DEBUG', filter_var($_ENV['CI_DEBUG'] ?? $_SERVER['CI_DEBUG'] ?? getenv('CI_DEBUG'), FILTER_VALIDATE_BOOLEAN) ?? true);

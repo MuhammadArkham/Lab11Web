@@ -3,8 +3,8 @@
 namespace App\Filters;
 
 use CodeIgniter\Filters\FilterInterface;
-use CodeIgniter\Http\RequestInterface;
-use CodeIgniter\Http\ResponseInterface;
+use CodeIgniter\HTTP\RequestInterface;
+use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 
 class ApiAuthFilter implements FilterInterface

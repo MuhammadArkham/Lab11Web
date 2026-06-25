@@ -9,6 +9,7 @@ class ArtikelModel extends Model
     protected $table            = 'artikel';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
+    protected $useTimestamps    = true;
     protected $allowedFields    = ['judul', 'isi', 'status', 'slug', 'gambar', 'id_kategori'];
 
     public function getArtikelDenganKategori()
