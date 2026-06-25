@@ -21,21 +21,6 @@ Repositori ini memuat kelanjutan pengerjaan praktikum pada **Modul 7, 8, dan 10*
 
 ---
 
-## Daftar Perbaikan Bug
-
-Sejumlah perbaikan bug telah dilakukan untuk memastikan aplikasi berjalan dengan benar:
-
-| No | Bug | Deskripsi | Perbaikan |
-|----|-----|-----------|-----------|
-| 1 | Nama file upload tidak unik | File gambar yang diupload dengan nama sama akan saling menimpa karena menggunakan `getName()` | Diganti dengan `getRandomName()` agar setiap file mendapat nama unik hasil generate otomatis |
-| 2 | Artikel draft tampil di halaman publik | Query pada controller publik tidak memfilter status artikel, sehingga artikel dengan status draft (0) tetap muncul | Ditambahkan klausa `WHERE status = 1` pada query artikel publik |
-| 3 | Namespace salah pada ApiAuthFilter | File `app/Filters/ApiAuthFilter.php` menggunakan namespace `CodeIgniter\Http` yang salah untuk `RequestInterface` dan `ResponseInterface` | Diperbaiki menjadi `CodeIgniter\HTTP` (sesuai vendor CI4) |
-| 4 | Timezone tidak sesuai wilayah | Aplikasi menggunakan timezone UTC (`appTimezone = 'UTC'`) sehingga timestamp artikel berbeda dengan waktu lokal | Diubah menjadi `'Asia/Jakarta'` agar timestamp sesuai WIB |
-| 5 | Timestamp otomatis tidak aktif | Model `ArtikelModel`, `KategoriModel`, dan `UserModel` tidak mengaktifkan fitur `useTimestamps` sehingga kolom `created_at` / `updated_at` tidak terisi otomatis | Ditambahkan properti `protected $useTimestamps = true;` pada ketiga model |
-| 6 | Route OPTIONS tidak terdaftar | Request HTTP method OPTIONS (preflight CORS) tidak memiliki handler sehingga request dari domain lain gagal | Telah ditambahkan route khusus untuk method OPTIONS dan konfigurasi `router.php` sudah ada |
-
----
-
 ## Daftar Isi
 
 1. [Praktikum 7: Relasi Tabel & Upload File Gambar](#praktikum-7-relasi-tabel--upload-file-gambar)
