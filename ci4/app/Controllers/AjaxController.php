@@ -11,7 +11,7 @@ class AjaxController extends Controller
 {
     public function index()
     {
-        return view('ajax/index');
+        return view('ajax/index', ['title' => 'Data Artikel (AJAX)']);
     }
 
     public function getData()
